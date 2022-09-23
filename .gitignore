@@ -1,2 +1,2 @@
 # Ignore the test binary
-prow-operator-test-harness.test
+shard-operator-test-harness.test

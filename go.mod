@@ -1,4 +1,4 @@
-module github.com/meowfaceman/prow-operator-test-harness
+module github.com/5733d9e2be6485d52ffa08870cabdee0/shard-operator-test-harness
 
 go 1.13
 
