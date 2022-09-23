@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"github.com/meowfaceman/prow-operator-test-harness/pkg/metadata"
+	"github.com/5733d9e2be6485d52ffa08870cabdee0/shard-operator-test-harness/pkg/metadata"
 	"github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
@@ -9,7 +9,7 @@ import (
 	"k8s.io/client-go/rest"
 )
 
-var _ = ginkgo.Describe("Prow Operator Tests", func() {
+var _ = ginkgo.Describe("Shard Operator Tests", func() {
 	defer ginkgo.GinkgoRecover()
 	config, err := rest.InClusterConfig()
 
@@ -17,12 +17,12 @@ var _ = ginkgo.Describe("Prow Operator Tests", func() {
 		panic(err)
 	}
 
-	ginkgo.It("prowjobs.prow.k8s.io CRD exists", func() {
+	ginkgo.It("bridgeexecutors.com.redhat.service.bridge CRD exists", func() {
 		apiextensions, err := clientset.NewForConfig(config)
 		Expect(err).NotTo(HaveOccurred())
 
 		// Make sure the CRD exists
-		_, err = apiextensions.ApiextensionsV1beta1().CustomResourceDefinitions().Get("prowjobs.prow.k8s.io", v1.GetOptions{})
+		_, err = apiextensions.ApiextensionsV1beta1().CustomResourceDefinitions().Get("bridgeexecutors.com.redhat.service.bridge", v1.GetOptions{})
 
 		if err != nil {
 			metadata.Instance.FoundCRD = false
