@@ -31,5 +31,5 @@ var _ = ginkgo.Describe("Shard Operator Tests", func() {
 		}
 
 		Expect(err).NotTo(HaveOccurred())
-	}, float64(30))
+	}, float64(3600))
 })
