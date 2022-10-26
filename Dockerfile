@@ -1,15 +1,14 @@
-FROM registry.ci.openshift.org/openshift/release:golang-1.16 AS builder
+FROM registry.access.redhat.com/ubi8/openjdk-11
 
-ENV PKG=/go/src/github.com/5733d9e2be6485d52ffa08870cabdee0/shard-operator-test-harness/
-WORKDIR ${PKG}
+RUN mkdir test-harness
+WORKDIR test-harness
+COPY pom.xml pom.xml
+COPY src src
 
-# compile test binary
-COPY . .
-RUN make
+# pre-download dependencies, excluding unneeded plugins
+RUN  mvn dependency:resolve dependency:resolve-plugins -DexcludeArtifactIds=maven-site-plugin,maven-install-plugin,maven-deploy-plugin,maven-dependency-plugin && \
+    rm -rf ~/.m2/repository/org/apache/commons/commons-text/1.3
 
-FROM registry.access.redhat.com/ubi7/ubi-minimal:latest
 
-COPY --from=builder /go/src/github.com/5733d9e2be6485d52ffa08870cabdee0/shard-operator-test-harness/shard-operator-test-harness.test shard-operator-test-harness.test
 
-ENTRYPOINT [ "/shard-operator-test-harness.test" ]
-
+ENTRYPOINT [ "mvn", "verify", "-ntp", "-fn"]
