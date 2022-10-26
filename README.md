@@ -1,9 +1,19 @@
-# shard-operator-test-harness
+# Smart events Add-on Test Harness
 
-This is an test harness meant for testing the shard operator addon. It does the following:
+It does the following:
 
-* Tests for the existence of the bridgeexecutors.com.redhat.service.bridge CRD. This should be present if the shard
-  operator addon has been installed properly.
-* Writes out a junit XML file with tests results to the /test-run-results directory as expected
-  by the [https://github.com/openshift/osde2e](osde2e) test framework.
-* Writes out an `addon-metadata.json` file which will also be consumed by the osde2e test framework.
+* Tests for the existence of the fleetshard CRDs:
+    * bridgeexecutors.com.redhat.service.bridge
+    * bridgeingresses.com.redhat.service.bridge
+* Writes out the files expected by the [osde2e](https://github.com/openshift/osde2e) test framework to the `/test-run-results` directory:
+    * `junit-report.xml`
+    * `addon-metadata.json`
+
+## Running locally
+
+To run the tests locally, build the test image and mount valid kubeconfig file
+
+```
+$ docker build -f Dockerfile -t shard-operator-test-harness:latest .
+$ docker run --rm -v ~/.kube:/home/jboss/.kube/:z -it shard-operator-test-harness:latest
+```
