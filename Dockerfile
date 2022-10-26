@@ -1,4 +1,4 @@
-FROM registry.ci.openshift.org/openshift/release:golang-1.16 AS builder
+FROM registry.ci.openshift.org/openshift/release:golang-1.13 AS builder
 
 ENV PKG=/go/src/github.com/5733d9e2be6485d52ffa08870cabdee0/shard-operator-test-harness/
 WORKDIR ${PKG}
